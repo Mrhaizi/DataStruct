@@ -12,6 +12,22 @@ endif()
 file(GLOB_RECURSE SRC src/*.cpp)
 
 add_executable(${PROJECT_NAME} ${SRC} main.cpp)
-target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -Werror=return-type)
+target_compile_options(${PROJECT_NAME} PRIVATE
+    # -------- MSVC --------
+    $<$<CXX_COMPILER_ID:MSVC>:
+        /W4        # 高等级警告
+        /WX        # 警告当错误
+        /permissive-   # 严格标准模式
+    >
+
+    # -------- Clang --------
+    $<$<CXX_COMPILER_ID:Clang>:
+        -Wall
+        -Wextra
+        -Wpedantic
+        -Werror
+        -Wreturn-type
+    >
+)
 
 target_include_directories(${PROJECT_NAME} PUBLIC include)
