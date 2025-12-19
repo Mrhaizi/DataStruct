@@ -7,64 +7,38 @@ struct BinaryTreeNode {
     BinaryTreeNode<T>* parentNodePtr_; // 父节点
     BinaryTreeNode<T>* leftNodePtr_; // 左子节点
     BinaryTreeNode<T>* rightNodePtr_; // 右子节点
-    BinaryTreeNode()
+    BinaryTreeNode() :
+        parentNodePtr_(nullptr),
+        leftNodePtr_(nullptr),
+        rightNodePtr_(nullptr)
     {
-        parentNodePtr_ = nullptr;
-		leftNodePtr_ = nullptr;
-        rightNodePtr_ = nullptr;
 	}
-    BinaryTreeNode(BinaryTreeNode<T>* parentNodePtr)
+    BinaryTreeNode(BinaryTreeNode<T>* parentNodePtr = nullptr, BinaryTreeNode<T>* leftNodePtr = nullptr, BinaryTreeNode<T>* rightNodePtr = nullptr ) :
+        parentNodePtr_(parentNodePtr),
+        leftNodePtr_(leftNodePtr),
+        rightNodePtr_(rightNodePtr)
     {
-        parentNodePtr_ = parentNodePtr;
-		leftNodePtr_ = nullptr;
-        rightNodePtr_ = nullptr;
 	}
 
-    bool addLeftNode(BinaryTreeNode<T>* leftNodePtr) {
-        if (leftNodePtr_ == nullptr) {
-            return false;
+    void putLeftNode(BinaryTreeNode<T>* leftNodePtr) {
+        leftNodePtr_ = leftNodePtr;
+        if (leftNodePtr_ != nullptr) {
+            leftNodePtr_->parentNodePtr_ = this;
         }
-        leftNodePtr_ =  leftNodePtr;
-        return true;
     }
-    bool addRightNode(BinaryTreeNode<T>* rightNodePtr) {
-        if (rightNodePtr_ == nullptr) {
-            return false;
+    void putRightNode(BinaryTreeNode<T>* rightNodePtr) {
+        rightNodePtr_ = rightNodePtr;
+        if (rightNodePtr_ != nullptr) {
+            leftNodePtr_->parentNodePtr_ = this;
         }
-        rightNodePtr_ =  rightNodePtr;
-        return true;
     }
-    bool addParentNode(BinaryTreeNode<T>* parentNodePtr) {
-        if (parentNodePtr_ == nullptr) {
-            return false;
+    void putParentNode(BinaryTreeNode<T>* parentNodePtr) {
+        parentNodePtr_ = parentNodePtr;
+        if (parentNodePtr_ != nullptr) {
+            leftNodePtr_->parentNodePtr_ = this;
         }
-        parentNodePtr_ =  parentNodePtr;
-        return true;
     }
-    bool deleteLeftNode(BinaryTreeNode<T>* leftNodePtr) {
-        if (leftNodePtr_ == nullptr) {
-            return false;
-        }
-        delete leftNodePtr;
-        leftNodePtr = nullptr
-        return true;
-    }
-    bool deleteRightNode(BinaryTreeNode<T>* rightNodePtr) {
-        if (rightNodePtr_ == nullptr) {
-            return false;
-        }
-        delete rightNodePtr_;
-        rightNodePtr_ = nullptr;
-        return true;
-    }
-    bool deleteParentNode(BinaryTreeNode<T>* parentNodePtr) {
-        if (parentNodePtr_ == nullptr) {
-            return false;
-        }
-        delete parentNodePtr_;
-        parentNodePtr_ = nullptr;
-        return true;
-    }
+
 };
 
 template <class T>
@@ -74,7 +48,6 @@ public:
         node_num_(0),
         tier_(0)
     {
-
     }
 private:
     std::size_t node_num_;
