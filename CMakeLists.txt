@@ -15,9 +15,9 @@ add_executable(${PROJECT_NAME} ${SRC} main.cpp)
 target_compile_options(${PROJECT_NAME} PRIVATE
     # -------- MSVC --------
     $<$<CXX_COMPILER_ID:MSVC>:
-        /W4        # 高等级警告
-        /WX        # 警告当错误
-        /permissive-   # 严格标准模式
+        /W4       
+        /WX        
+        /permissive-   
     >
 
     # -------- Clang --------
