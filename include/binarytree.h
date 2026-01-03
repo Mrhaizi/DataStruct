@@ -38,7 +38,6 @@ struct BinaryTreeNode {
             leftNodePtr_->parentNodePtr_ = this;
         }
     }
-
 };
 
 template <class T>
@@ -49,6 +48,7 @@ public:
         tier_(0)
     {
     }
+    void pushBack();
 private:
     std::size_t node_num_;
     std::size_t tier_;
